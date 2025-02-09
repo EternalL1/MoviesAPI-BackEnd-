@@ -1,11 +1,15 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from .models import User
+from .models import Movie
 from django.http import JsonResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
+from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
+from .serializers import MovieSerializer
 
 def normalize_phone(phone):
     """ Convert phone number to a consistent format (e.g., +639123456789) """
@@ -74,3 +78,25 @@ def login_view(request):
         return JsonResponse({'error': 'Invalid credentials'}, status=401)
         
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+@api_view(['GET'])
+def movie_list(request):
+    movies = Movie.objects.all()
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data)
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_movie(request):
+    if request.user.role != 'admin': 
+        return Response({'error': 'You do not have permission to add movies'}, status=403)
+
+    serializer = MovieSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+
+    return Response(serializer.errors, status=400)
