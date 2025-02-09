@@ -9,14 +9,14 @@ from rest_framework.authtoken.models import Token
 
 def normalize_phone(phone):
     """ Convert phone number to a consistent format (e.g., +639123456789) """
-    phone = phone.replace(" ", "").replace("-", "")  # Remove spaces or dashes
+    phone = phone.replace(" ", "").replace("-", "") 
     if phone.startswith("+63"):  
-        return phone  # Already in international format
+        return phone  
     elif phone.startswith("09"):  
-        return "+63" + phone[1:]  # Convert '09123456789' -> '+639123456789'
+        return "+63" + phone[1:]  
     elif phone.startswith("9") and len(phone) == 10:  
-        return "+63" + phone  # Convert '9123456789' -> '+639123456789'
-    return phone  # If it doesn't match, return as is
+        return "+63" + phone  
+    return phone  
 
 @csrf_exempt
 @api_view(['POST'])
