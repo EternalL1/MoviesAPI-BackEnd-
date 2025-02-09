@@ -62,7 +62,8 @@ This is the backend for the Movie App, built using Django and Django REST Framew
 ### API Endpoints
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-|        |          |             |
+|  Post  | /api/register/ | Register a new user |
+| Post   | /api/login/ | User login |
 
 ### Deployment on AWS (Planned)
 - The backend will be deployed using AWS services such as EC2 or Elastic Beanstalk.
