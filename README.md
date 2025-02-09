@@ -3,7 +3,7 @@
 ### Overview
 This is the backend for the Movie App, built using Django and Django REST Framework (DRF). It provides APIs for managing movies and user authentication. An admin panel is also included for CRUD operations.
 
-## Technologies Used
+### Technologies Used
 - Django – Backend framework
 - Django REST Framework (DRF) – API handling
 - PostgreSQL – Database
@@ -60,18 +60,18 @@ This is the backend for the Movie App, built using Django and Django REST Framew
     ```
 
 ## API Endpoints
-| Method | Endpoint | Description |
+| Methods | Endpoints | Descriptions |
 |--------|----------|-------------|
 |  POST  | /api/register/ | Register a new user |
 | POST   | /api/login/ | User login |
 | POST   | /api/movie/add/ | Adding movie|
 | GET    | /api/movie/ | Retrieving movies|
 
-## Deployment on AWS (Planned)
+### Deployment on AWS (Planned)
 - The backend will be deployed using AWS services such as EC2 or Elastic Beanstalk.
 - The database can be hosted on AWS RDS (PostgreSQL).
 
-## Contribution
+### Contribution
 1. Fork the repository
 2. Create a branch: `git checkout -b feature-branch`
 3. Make changes and commit: `git commit -m 'Add feature'`
