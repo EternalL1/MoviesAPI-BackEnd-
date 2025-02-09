@@ -1,22 +1,22 @@
-## Movie App Backend
+# Movie App Backend
 
 ### Overview
 This is the backend for the Movie App, built using Django and Django REST Framework (DRF). It provides APIs for managing movies and user authentication. An admin panel is also included for CRUD operations.
 
-### Technologies Used
+## Technologies Used
 - Django – Backend framework
 - Django REST Framework (DRF) – API handling
 - PostgreSQL – Database
 - AWS – Deployment (future requirement)
 
-### Setup Instructions
+## Setup Instructions
 
-#### Prerequisites
+### Prerequisites
 - Python installed (>= 3.x)
 - PostgreSQL installed and running
 - Virtual environment set up
 
-#### Installation
+### Installation
 1. Clone the repository:
     ```bash
     git clone https://github.com/your-repo/movieapp-backend.git
@@ -59,7 +59,7 @@ This is the backend for the Movie App, built using Django and Django REST Framew
     python manage.py runserver
     ```
 
-### API Endpoints
+## API Endpoints
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 |  POST  | /api/register/ | Register a new user |
@@ -67,16 +67,16 @@ This is the backend for the Movie App, built using Django and Django REST Framew
 | POST   | /api/movie/add/ | Adding movie|
 | GET    | /api/movie/ | Retrieving movies|
 
-### Deployment on AWS (Planned)
+## Deployment on AWS (Planned)
 - The backend will be deployed using AWS services such as EC2 or Elastic Beanstalk.
 - The database can be hosted on AWS RDS (PostgreSQL).
 
-### Contribution
+## Contribution
 1. Fork the repository
 2. Create a branch: `git checkout -b feature-branch`
 3. Make changes and commit: `git commit -m 'Add feature'`
 4. Push to GitHub: `git push origin feature-branch`
 5. Open a Pull Request
   
-### License  
+## License  
 This project is licensed under the MIT License.
