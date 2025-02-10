@@ -68,7 +68,7 @@ This is the backend for the Movie App, built using Django and Django REST Framew
 | GET    | /api/movies/ | Retrieve all movies|
 | GET    | /api/movie/{id}/ | Retrieve specific movie |
 | PUT    | /api/movie/{id}/ | Update specific movie |
-| DELETE | /api/movie/{id}  | Delete specific movie |
+| DELETE | /api/movie/{id}/  | Delete specific movie |
 
 ### Deployment on AWS (Planned)
 - The backend will be deployed using AWS services such as EC2 or Elastic Beanstalk.
