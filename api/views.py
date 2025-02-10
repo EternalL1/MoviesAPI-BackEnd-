@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework import generics
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
@@ -100,3 +101,8 @@ def add_movie(request):
         return Response(serializer.data, status=201)
 
     return Response(serializer.errors, status=400)
+
+
+class MovieDetailView(generics.RetrieveAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
