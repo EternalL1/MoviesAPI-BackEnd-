@@ -110,10 +110,17 @@ class MovieDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = MovieSerializer
 
 
-
 @api_view(['GET'])
 def coming_soon_movies(request):
     today = timezone.now().date()
     movies = Movie.objects.filter(release_date__gt=today) 
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def search_movies(request):
+    query = request.GET.get('q', '') 
+    movies = Movie.objects.filter(title__icontains=query)  
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
