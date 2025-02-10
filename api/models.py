@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.core.validators import MaxValueValidator
 
 class UserManager(BaseUserManager):
     def create_user(self, email, phoneNumber, fullName, password=None):
@@ -58,7 +59,7 @@ class Movie(models.Model):
     poster_image = models.ImageField(upload_to='posters/', null=True, blank=True)
     main_cast = models.CharField(max_length=255)
     director = models.CharField(max_length=255)
-    average_rating = models.FloatField(default=0)
+    average_rating = models.FloatField(default=0, validators=[MaxValueValidator(10)])
 
     def __str__(self):
         return self.title
