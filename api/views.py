@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from django.utils import timezone
 
 def normalize_phone(phone):
     """ Convert phone number to a consistent format (e.g., +639123456789) """
@@ -107,3 +108,12 @@ def add_movie(request):
 class MovieDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+
+
+
+@api_view(['GET'])
+def coming_soon_movies(request):
+    today = timezone.now().date()
+    movies = Movie.objects.filter(release_date__gt=today) 
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data)

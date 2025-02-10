@@ -64,7 +64,8 @@ This is the backend for the Movie App, built using Django and Django REST Framew
 |--------|----------|-------------|
 |  POST  | /api/register/ | Register user |
 | POST   | /api/login/ | Login user |
-| POST   | /api/movies/add/ | Add movie|
+| POST   | /api/movie/add/ | Add movie|
+| GET    | /api/movies/coming-soon/ | Retrieve coming soon movies |
 | GET    | /api/movies/ | Retrieve all movies|
 | GET    | /api/movie/{id}/ | Retrieve specific movie |
 | PUT    | /api/movie/{id}/ | Update specific movie |
