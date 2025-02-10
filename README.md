@@ -62,7 +62,7 @@ This is the backend for the Movie App, built using Django and Django REST Framew
 ## API Endpoints
 | Methods | Endpoints | Descriptions |
 |--------|----------|-------------|
-|  POST  | /api/register/ | Register new user |
+|  POST  | /api/register/ | Register user |
 | POST   | /api/login/ | Login user |
 | POST   | /api/movies/add/ | Add movie|
 | GET    | /api/movies/ | Retrieve all movies|
