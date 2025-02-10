@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from .models import User
 from .models import Movie
+from .serializers import MovieSerializer
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
@@ -10,7 +11,7 @@ from rest_framework import generics
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-from .serializers import MovieSerializer
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
 def normalize_phone(phone):
     """ Convert phone number to a consistent format (e.g., +639123456789) """
@@ -103,6 +104,6 @@ def add_movie(request):
     return Response(serializer.errors, status=400)
 
 
-class MovieDetailView(generics.RetrieveAPIView):
+class MovieDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
