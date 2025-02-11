@@ -72,7 +72,7 @@ This is the backend for the Movie App, built using Django and Django REST Framew
 | GET    | /api/reviews/ | Retrieve all reviews |
 | GET    | /api/movie/{id}/reviews/ | Retrieve specific movie reviews |
 | PUT & DELETE    | /api/reviews/{id}/ | Update or Delete movie reviews |
-| GET & PUT & DELETE | /api/movie/{id}/  | Retrieve, Update, and Delete specific movie |
+| GET & PUT & DELETE | /api/movie/{id}/  | Retrieve, Update, or Delete specific movie |
 
 
 ### Deployment on AWS (Planned)
