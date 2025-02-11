@@ -69,6 +69,7 @@ This is the backend for the Movie App, built using Django and Django REST Framew
 | GET    | /api/movies/coming-soon/ | Retrieve coming soon movies |
 | GET    | /api/movie/search/?q=movie_title | Retrieve movie by title |
 | GET    | /api/genres/ | Retreive movie genres |
+| GET    | /api/movies/filter/?genre=genre | Filter movies by genre |
 | GET    | /api/movies/ | Retrieve all movies|
 | GET    | /api/reviews/ | Retrieve all reviews |
 | GET    | /api/movie/{id}/reviews/ | Retrieve specific movie reviews |
