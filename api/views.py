@@ -130,7 +130,11 @@ def search_movies(request):
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:  
+            return [permissions.AllowAny()]
+        return [permissions.IsAuthenticated()]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -147,9 +151,11 @@ def get_reviews(request, movie_id):
 def add_review(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
     serializer = ReviewSerializer(data=request.data)
+
     if serializer.is_valid():
-        serializer.save(user=request.user, movie=movie)
+        serializer.save(user=request.user, movie=movie) 
         return Response(serializer.data, status=201)
+
     return Response(serializer.errors, status=400)
 
 @api_view(['PUT', 'DELETE'])
