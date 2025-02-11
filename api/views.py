@@ -85,6 +85,7 @@ def login_view(request):
 
 
 @api_view(['GET'])
+@permission_classes([permissions.AllowAny])
 def movie_list(request):
     movies = Movie.objects.all()
     serializer = MovieSerializer(movies, many=True)
