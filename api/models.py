@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class UserManager(BaseUserManager):
     def create_user(self, email, phoneNumber, fullName, password=None):
@@ -72,3 +72,16 @@ class Movie(models.Model):
         hours = total_seconds // 3600
         minutes = (total_seconds % 3600) // 60
         return f"{int(hours)}h {int(minutes)}m"
+
+
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='reviews')
+    rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    review_text = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.fullName} - {self.movie.title} ({self.rating} Stars)"
