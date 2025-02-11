@@ -171,3 +171,21 @@ def update_delete_review(request, review_id):
     elif request.method == 'DELETE':
         review.delete()
         return Response({'message': 'Review deleted successfully'}, status=204)
+
+class MovieViewSet(viewsets.ModelViewSet):
+    serializer_class = MovieSerializer
+    queryset = Movie.objects.all()
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()  
+        genre = self.request.query_params.get('genre', None)
+        if genre:
+            queryset = queryset.filter(genre__icontains=genre)
+        return queryset
+    
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def get_genres(request):
+    genres = Movie.objects.values_list('genre', flat=True).distinct()
+    return Response(genres)

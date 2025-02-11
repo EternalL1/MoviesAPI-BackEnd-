@@ -3,7 +3,7 @@ from .views import register, login_view
 from .views import movie_list
 from .views import add_movie
 from .views import coming_soon_movies
-from .views import search_movies, ReviewViewSet, get_reviews, add_review, update_delete_review
+from .views import search_movies, ReviewViewSet, get_reviews, add_review, update_delete_review, get_genres, MovieViewSet
 from .views import MovieDetailView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -29,6 +29,11 @@ urlpatterns = [
     path('movie/<int:movie_id>/reviews/', get_reviews, name='get_reviews'),
     path('movie/<int:movie_id>/reviews/add/', add_review, name='add_review'),
     path('reviews/<int:review_id>/', update_delete_review, name='update_delete_review'),
+
+    # Genre URLs
+    path('genres/', get_genres, name='get-genres'),
+    path('movies/filter/', MovieViewSet.as_view({'get': 'list'}), name='filter-movies'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
