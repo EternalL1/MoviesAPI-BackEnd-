@@ -56,7 +56,7 @@ class Movie(models.Model):
     release_date = models.DateField()
     duration = models.DurationField()
     video_url = models.URLField() 
-    poster_image = models.ImageField(upload_to='posters/', null=True, blank=True)
+    poster_image = models.URLField(null=True, blank=True)
     main_cast = models.CharField(max_length=255)
     director = models.CharField(max_length=255)
     average_rating = models.FloatField(default=0, validators=[MaxValueValidator(10)])
