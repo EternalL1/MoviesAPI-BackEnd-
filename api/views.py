@@ -92,7 +92,6 @@ def movie_list(request):
     return Response(serializer.data)
 
 
-
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_movie(request):
@@ -110,6 +109,7 @@ def add_movie(request):
 class MovieDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+    permission_classes = []
 
 
 @api_view(['GET'])
