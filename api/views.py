@@ -55,6 +55,7 @@ def register(request):
 
 @csrf_exempt
 @api_view(['POST'])
+@permission_classes([permissions.AllowAny])
 def login_view(request):
     
     print("Raw request body:", request.body)  # Debugging
