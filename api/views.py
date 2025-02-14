@@ -28,6 +28,7 @@ def normalize_phone(phone):
 
 @csrf_exempt
 @api_view(['POST'])
+@permission_classes([permissions.AllowAny])
 def register(request):
     if request.method == 'POST':
         fullName = request.data.get('fullName', None)
