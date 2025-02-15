@@ -58,19 +58,12 @@ def register(request):
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
 def login_view(request):
-    
-    print("Raw request body:", request.body)  # Debugging
-    print("Parsed request data:", request.data)  # Debugging
-
     if request.method == 'POST':
         identifier = request.data.get('identifier', None)
         password = request.data.get('password', None)
 
-        print("Received identifier:", identifier)
-        print("Received password:", password)
-
         if not identifier or not password:
-            return JsonResponse({'error': 'Identifier (email or phone) and password are required'}, status=400)
+            return JsonResponse({'error': 'Identifier and password are required'}, status=400)
 
         user = User.objects.filter(email=identifier).first()
 
@@ -80,11 +73,15 @@ def login_view(request):
 
         if user and user.check_password(password):
             token, created = Token.objects.get_or_create(user=user)
-            return JsonResponse({'message': 'Login successful', 'token': token.key}, status=200)
+            return JsonResponse({
+                'message': 'Login successful',
+                'token': token.key,
+                'role': user.role 
+            }, status=200)
 
         return JsonResponse({'error': 'Invalid credentials'}, status=401)
         
-    return JsonResponse({'error': 'Invalid request method'}, status=405)
+    return JsonResponse({'error': 'Invalid request method'}, status=405) 
 
 
 @api_view(['GET'])
