@@ -4,7 +4,9 @@ from .models import Movie, User, Review
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = '__all__' 
+        fields = ['id', 'title', 'genre', 'description', 'release_date', 
+                 'poster_image', 'average_rating', 'duration', 'main_cast', 
+                 'director', 'video_url'] 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
