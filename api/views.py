@@ -182,23 +182,17 @@ def update_delete_review(request, review_id):
 @permission_classes([permissions.AllowAny])
 def get_genres(request):
     try:
-        # Get all movies
         movies = Movie.objects.all()
         
-        # Create a dictionary to store genre counts
         genre_counts = {}
         
-        # Iterate through movies and split genres
         for movie in movies:
-            # Split genres by comma and clean them
             genres = [g.strip().title() for g in movie.genre.split(',')]
             
-            # Count each genre
             for genre in genres:
-                if genre:  # Only count non-empty genres
+                if genre:  
                     genre_counts[genre] = genre_counts.get(genre, 0) + 1
         
-        # Convert to list of dictionaries and sort by genre name
         genre_data = [
             {
                 'genre': genre,
@@ -207,7 +201,6 @@ def get_genres(request):
             for genre, count in genre_counts.items()
         ]
         
-        # Sort alphabetically
         genre_data.sort(key=lambda x: x['genre'])
         
         return Response(genre_data)
@@ -219,23 +212,17 @@ def get_genres(request):
 @permission_classes([permissions.AllowAny])
 def movies_by_genre(request, genre):
     try:
-        # Convert genre parameter to title case for consistency
         genre = genre.title()
         
-        # Get all movies
         movies = Movie.objects.all()
         matching_movies = []
         
-        # Filter movies that contain the specific genre
         for movie in movies:
-            # Split genres and clean them
             movie_genres = [g.strip().title() for g in movie.genre.split(',')]
             
-            # If the requested genre is in this movie's genres, include it
             if genre in movie_genres:
                 matching_movies.append(movie)
         
-        # Print for debugging
         print(f"Looking for genre: {genre}")
         print(f"Found {len(matching_movies)} movies")
         
@@ -255,7 +242,6 @@ class MovieViewSet(viewsets.ModelViewSet):
         genre = self.request.query_params.get('genre', None)
         
         if genre:
-            # Split the genre parameter in case it contains multiple genres
             genres = [g.strip().title() for g in genre.split(',')]
             matching_movies = []
             
