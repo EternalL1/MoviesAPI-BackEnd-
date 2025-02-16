@@ -113,12 +113,20 @@ class MovieDetailView(RetrieveUpdateDestroyAPIView):
 
 
 @api_view(['GET'])
+@permission_classes([permissions.AllowAny])
 def coming_soon_movies(request):
     today = timezone.now().date()
     movies = Movie.objects.filter(release_date__gt=today) 
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def released_movies(request):
+    today = timezone.now().date()
+    movies = Movie.objects.filter(release_date__lte=today)
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data) 
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])

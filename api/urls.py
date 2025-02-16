@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import register, login_view
 from .views import movie_list
-from .views import add_movie, movies_by_genre
+from .views import add_movie, movies_by_genre, released_movies
 from .views import coming_soon_movies
 from .views import search_movies, ReviewViewSet, get_reviews, add_review, update_delete_review, get_genres, MovieViewSet
 from .views import MovieDetailView
@@ -22,6 +22,7 @@ urlpatterns = [
     path('movie/add/', add_movie, name='add_movie'),
     path('movie/<int:pk>/', MovieDetailView.as_view(), name='movie-detail'),
     path('movies/coming-soon/', coming_soon_movies, name='coming-soon-movies'),
+    path('movies/released/', released_movies, name='released-movies'),
     path('movie/search/', search_movies, name='search-movies'),
 
     # Review URLs
