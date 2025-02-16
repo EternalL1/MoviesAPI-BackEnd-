@@ -72,6 +72,13 @@ class Movie(models.Model):
         hours = total_seconds // 3600
         minutes = (total_seconds % 3600) // 60
         return f"{int(hours)}h {int(minutes)}m"
+    
+    def update_average_rating(self):
+        reviews = self.reviews.all()
+        if reviews:
+            avg = sum(review.rating for review in reviews) / len(reviews)
+            self.average_rating = round(avg, 1)
+            self.save()
 
 
 
@@ -85,3 +92,7 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.user.fullName} - {self.movie.title} ({self.rating} Stars)"
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.movie.update_average_rating() 
