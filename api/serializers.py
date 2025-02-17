@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'email', 'phoneNumber', 'fullName', 'role']
 
 class ReviewSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = UserSerializer(read_only=True)
     class Meta:
         model = Review
         fields = ['id', 'user', 'movie', 'rating', 'review_text', 'created_at']
