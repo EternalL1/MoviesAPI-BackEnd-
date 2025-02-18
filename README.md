@@ -66,8 +66,10 @@ This is the backend for the Movie App, built using Django and Django REST Framew
 | POST   | /api/login/ | Login user |
 | POST   | /api/movie/add/ | Add movie|
 | POST   | /api/movie/{id}/reviews/add/ | Add movie reviews |
+| POST   | /api/bookmarks/add/{movie_id}/ | Bookmarks a movie |
 | GET    | /api/movies/coming-soon/ | Retrieve coming soon movies |
 | GET    | /api/movies/released/    | Retrieve released movies |
+| GET    | /api/bookmarks/ | Retrieve bookmarked movies |
 | GET    | /api/movie/search/?q=movie_title | Retrieve movie by title |
 | GET    | /api/genres/ | Retreive movie genres |
 | GET    | /api/movies/filter/?genre=genre | Filter movies by genre |
@@ -77,6 +79,7 @@ This is the backend for the Movie App, built using Django and Django REST Framew
 | GET    | /api/movie/{id}/reviews/ | Retrieve specific movie reviews |
 | PUT & DELETE    | /api/reviews/{id}/ | Update or Delete movie reviews |
 | GET & PUT & DELETE | /api/movie/{id}/  | Retrieve, Update, or Delete specific movie |
+| DELETE | /api/bookmarks/remove/{movie_id}/ | Delete bookmarked movie |
 
 
 ### Deployment on AWS (Planned)
