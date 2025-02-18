@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from .models import User
-from .models import Movie, Review
-from .serializers import MovieSerializer, ReviewSerializer
+from .models import Movie, Review, Bookmark
+from .serializers import MovieSerializer, ReviewSerializer, BookmarkSerializer
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
@@ -260,3 +260,32 @@ class MovieViewSet(viewsets.ModelViewSet):
         return queryset 
     
 
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def get_bookmarks(request):
+    bookmarks = Bookmark.objects.filter(user=request.user)
+    serializer = BookmarkSerializer(bookmarks, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def add_bookmark(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    
+    if Bookmark.objects.filter(user=request.user, movie=movie).exists():
+        return Response({'error': 'Movie is already bookmarked'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    bookmark = Bookmark.objects.create(user=request.user, movie=movie)
+    serializer = BookmarkSerializer(bookmark)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['DELETE'])
+@permission_classes([permissions.IsAuthenticated])
+def remove_bookmark(request, movie_id):
+    bookmark = Bookmark.objects.filter(user=request.user, movie_id=movie_id).first()
+    
+    if not bookmark:
+        return Response({'error': 'Bookmark not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+    bookmark.delete()
+    return Response({'message': 'Bookmark removed'}, status=status.HTTP_204_NO_CONTENT)

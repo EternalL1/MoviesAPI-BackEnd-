@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import register, login_view
+from .views import add_bookmark, get_bookmarks, register, login_view, remove_bookmark
 from .views import movie_list
 from .views import add_movie, movies_by_genre, released_movies
 from .views import coming_soon_movies
@@ -36,6 +36,10 @@ urlpatterns = [
     path('movies/genre/<str:genre>/', movies_by_genre, name='movies-by-genre'),
     path('movies/filter/', MovieViewSet.as_view({'get': 'list'}), name='filter-movies'),
 
+    # Bookmarks URLs
+    path('bookmarks/', get_bookmarks, name='get_bookmarks'),
+    path('bookmarks/add/<int:movie_id>/', add_bookmark, name='add_bookmark'),
+    path('bookmarks/remove/<int:movie_id>/', remove_bookmark, name='remove_bookmark'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
