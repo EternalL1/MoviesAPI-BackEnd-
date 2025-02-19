@@ -288,4 +288,4 @@ def remove_bookmark(request, movie_id):
         return Response({'error': 'Bookmark not found'}, status=status.HTTP_404_NOT_FOUND)
     
     bookmark.delete()
-    return Response({'message': 'Bookmark removed'}, status=status.HTTP_204_NO_CONTENT)
+    return Response({'message': 'Bookmark removed'}, status=status.HTTP_200_OK)
