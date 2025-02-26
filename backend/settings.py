@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-18nz=@1sfq_esot-!fpajxs5a@fk1!!d54_(p4tx1-7kgm$g^2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["movieapp-backend-dev.ap-southeast-1.elasticbeanstalk.com", 
+ALLOWED_HOSTS = ['movieapp-backend-dev.ap-southeast-1.elasticbeanstalk.com', 
                  "172.31.20.230"]
 
 
@@ -83,25 +83,24 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 if 'RDS_DB_NAME' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('RDS_DB_NAME'),
-            'USER': os.environ.get('RDS_USERNAME'),
-            'PASSWORD': os.environ.get('RDS_PASSWORD'),
-            'HOST': os.environ.get('RDS_HOSTNAME'),
-            'PORT': os.environ.get('RDS_PORT'),
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'postgres',
-            'USER': 'postgres',
-            'PASSWORD': os.environ["RDS_PASSWORD"],
-            'HOST': 'localhost',
-            'PORT': '',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
         }
     }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': os.environ["RDS_PASSWORD"],
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 
 # Password validation
