@@ -53,13 +53,10 @@ class User(AbstractBaseUser):
 class Movie(models.Model):
     title = models.CharField(max_length=255)
     genre = models.CharField(max_length=100)
-    description = models.TextField()
     release_date = models.DateField()
     duration = models.DurationField()
     video_url = models.URLField() 
     poster_image = models.URLField(null=True, blank=True)
-    main_cast = models.CharField(max_length=255)
-    director = models.CharField(max_length=255)
     average_rating = models.FloatField(default=0, validators=[MaxValueValidator(10)])
 
     def __str__(self):

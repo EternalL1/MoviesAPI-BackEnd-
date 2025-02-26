@@ -6,7 +6,7 @@ from .models import User
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     list_display = ('title', 'genre', 'release_date', 'average_rating')
-    search_fields = ('title', 'genre', 'director')
+    search_fields = ('title', 'genre')
 
 class CustomUserAdmin(UserAdmin):
     model = User
