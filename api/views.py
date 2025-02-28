@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import get_user_model
 from .models import User
-from .models import Movie, Review, Bookmark
-from .serializers import MovieSerializer, ReviewSerializer, BookmarkSerializer
+from .models import Movie, Bookmark
+from .serializers import MovieSerializer, BookmarkSerializer
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
@@ -15,6 +16,8 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
+
+User = get_user_model()
 
 def normalize_phone(phone):
     """ Convert phone number to a consistent format (e.g., +639123456789) """
@@ -136,52 +139,6 @@ def search_movies(request):
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 
-
-class ReviewViewSet(viewsets.ModelViewSet):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-    
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:  
-            return [permissions.AllowAny()]
-        return [permissions.IsAuthenticated()]
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-@api_view(['GET'])
-@permission_classes([permissions.AllowAny])
-def get_reviews(request, movie_id):
-    reviews = Review.objects.filter(movie_id=movie_id)
-    serializer = ReviewSerializer(reviews, many=True)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-@permission_classes([permissions.IsAuthenticated])
-def add_review(request, movie_id):
-    movie = get_object_or_404(Movie, id=movie_id)
-    serializer = ReviewSerializer(data=request.data)
-
-    if serializer.is_valid():
-        serializer.save(user=request.user, movie=movie) 
-        return Response(serializer.data, status=201)
-
-    return Response(serializer.errors, status=400)
-
-@api_view(['PUT', 'DELETE'])
-@permission_classes([permissions.IsAuthenticated])
-def update_delete_review(request, review_id):
-    review = get_object_or_404(Review, id=review_id, user=request.user)
-    if request.method == 'PUT':
-        serializer = ReviewSerializer(review, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
-    elif request.method == 'DELETE':
-        review.delete()
-        return Response({'message': 'Review deleted successfully'}, status=204)
-    
 
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])

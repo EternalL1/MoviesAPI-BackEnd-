@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Movie, User, Review, Bookmark
+from .models import Movie, User, Bookmark
 
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,12 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'email', 'phoneNumber', 'fullName', 'role']
 
-class ReviewSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-    class Meta:
-        model = Review
-        fields = ['id', 'user', 'movie', 'rating', 'review_text', 'created_at']
-        read_only_fields = ['user', 'movie']
 
 class BookmarkSerializer(serializers.ModelSerializer):
     movie_id = serializers.IntegerField(source='movie.id', read_only=True)

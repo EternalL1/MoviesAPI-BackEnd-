@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-18nz=@1sfq_esot-!fpajxs5a@fk1!!d54_(p4tx1-7kgm$g^2
 DEBUG = True
 
 ALLOWED_HOSTS = ['movieapp-backend-dev.ap-southeast-1.elasticbeanstalk.com', 
-                 "172.31.20.230", '172.31.2.113', '172.31.6.31', ]
+                 "172.31.20.230", '172.31.2.113', '172.31.6.31', '127.0.0.1' ]
 
 
 # Application definition
@@ -97,9 +97,9 @@ else:
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': os.environ["RDS_PASSWORD"],
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
-        'PORT': ' ',
+        'PORT': '5432',
     }
 }
 

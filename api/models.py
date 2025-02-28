@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator
 
 class UserManager(BaseUserManager):
     def create_user(self, email, phoneNumber, fullName, password=None):
@@ -71,30 +71,6 @@ class Movie(models.Model):
         minutes = (total_seconds % 3600) // 60
         return f"{int(hours)}h {int(minutes)}m"
     
-    def update_average_rating(self):
-        reviews = self.reviews.all()
-        if reviews:
-            avg = sum(review.rating for review in reviews) / len(reviews)
-            self.average_rating = round(avg, 1)
-            self.save()
-
-
-
-class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='reviews')
-    rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
-    review_text = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.user.fullName} - {self.movie.title} ({self.rating} Stars)"
-    
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        self.movie.update_average_rating() 
-
 
 User = get_user_model()
 
