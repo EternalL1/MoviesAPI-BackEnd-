@@ -40,22 +40,28 @@ def register(request):
         phoneNumber = request.data.get('phoneNumber', None)
         password = request.data.get('password', None)
 
+        # Log the received data
+        print(f"Received data: fullName={fullName}, email={email}, phoneNumber={phoneNumber}, password={password}")
+
         if not fullName or not password or (not email and not phoneNumber):
             return JsonResponse({'error': 'Full name, password, and either email or phone number are required'}, status=400)
         
         if phoneNumber:
             phoneNumber = normalize_phone(phoneNumber)  # Normalize before saving
         
-        user = User.objects.create_user(
-            fullName=fullName,
-            email=email,
-            phoneNumber=phoneNumber,
-            password=password 
-        )
-        return JsonResponse({'message': 'User registered successfully'}, status=201)
+        try:
+            user = User.objects.create_user(
+                fullName=fullName,
+                email=email,
+                phoneNumber=phoneNumber,
+                password=password 
+            )
+            return JsonResponse({'message': 'User registered successfully'}, status=201)
+        except Exception as e:
+            print(f"Error during user registration: {str(e)}")
+            return JsonResponse({'error': str(e)}, status=500)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
-
 
 @csrf_exempt
 @api_view(['POST'])
@@ -114,15 +120,6 @@ class MovieDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = MovieSerializer
     permission_classes = []
 
-
-@api_view(['GET'])
-@permission_classes([permissions.AllowAny])
-def coming_soon_movies(request):
-    today = timezone.now().date()
-    movies = Movie.objects.filter(release_date__gt=today) 
-    serializer = MovieSerializer(movies, many=True)
-    return Response(serializer.data)
-
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])
 def released_movies(request):
@@ -135,7 +132,7 @@ def released_movies(request):
 @permission_classes([permissions.AllowAny])
 def search_movies(request):
     query = request.GET.get('q', '') 
-    movies = Movie.objects.filter(title__icontains=query)  
+    movies = Movie.objects.filter(title__icontains(query))  
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 
