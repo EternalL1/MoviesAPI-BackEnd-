@@ -132,7 +132,7 @@ def released_movies(request):
 @permission_classes([permissions.AllowAny])
 def search_movies(request):
     query = request.GET.get('q', '') 
-    movies = Movie.objects.filter(title__icontains(query))  
+    movies = Movie.objects.filter(title__icontains=query)  #i made changes here 
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 
