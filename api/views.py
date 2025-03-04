@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from .models import User
 from .models import Movie, Bookmark
-from .serializers import MovieSerializer, BookmarkSerializer
+from .serializers import MovieSerializer, BookmarkSerializer, UserSerializer  # Import UserSerializer
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
@@ -16,6 +16,8 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
+from rest_framework.views import APIView  # Import APIView
+from .serializers import RegisterUserSerializer
 
 User = get_user_model()
 
@@ -132,7 +134,7 @@ def released_movies(request):
 @permission_classes([permissions.AllowAny])
 def search_movies(request):
     query = request.GET.get('q', '') 
-    movies = Movie.objects.filter(title__icontains=query)  #i made changes here 
+    movies = Movie.objects.filter(title__icontains(query))  #i made changes here 
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 
@@ -243,3 +245,16 @@ def remove_bookmark(request, movie_id):
     
     bookmark.delete()
     return Response({'message': 'Bookmark removed'}, status=status.HTTP_200_OK)
+
+class UserDetailView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class RegisterUserView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterUserSerializer
+    permission_classes = [permissions.AllowAny]

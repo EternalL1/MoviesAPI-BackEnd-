@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,6 +36,24 @@ ALLOWED_HOSTS = ['movieapp-backend-dev.ap-southeast-1.elasticbeanstalk.com',
 
 # Application definition
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dn7umol6y',
+    'API_KEY': '227332756668716',
+    'API_SECRET': 'jemIff8Y7ZcN08pm1PMuDA2vwB8',
+}
+
+MEDIA_URL = '/media/'
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+
+
+
+
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,11 +61,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+     
     'api',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [

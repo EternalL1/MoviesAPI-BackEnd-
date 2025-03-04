@@ -10,7 +10,7 @@ class MovieSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'phoneNumber', 'fullName', 'role']
+        fields = ['id', 'email', 'phoneNumber', 'fullName', 'is_active', 'role']
 
 
 class BookmarkSerializer(serializers.ModelSerializer):
@@ -27,3 +27,19 @@ class BookmarkSerializer(serializers.ModelSerializer):
             'movie_poster', 'movie_release_date', 'created_at'
         ]
         read_only_fields = ['user']
+
+class RegisterUserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'phoneNumber', 'fullName', 'password']
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            email=validated_data.get('email'),
+            phoneNumber=validated_data.get('phoneNumber'),
+            fullName=validated_data.get('fullName'),
+            password=validated_data.get('password')
+        )
+        return user
