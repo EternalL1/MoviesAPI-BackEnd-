@@ -4,6 +4,7 @@ from .views import movie_list
 from .views import add_movie, movies_by_genre, released_movies
 from .views import search_movies, get_genres, MovieViewSet
 from .views import MovieDetailView, UserDetailView, RegisterUserView
+from .views import UserListView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -29,8 +30,9 @@ urlpatterns = [
     path('bookmarks/add/<int:movie_id>/', add_bookmark, name='add_bookmark'),
     path('bookmarks/remove/<int:movie_id>/', remove_bookmark, name='remove_bookmark'),
 
-    # User URL
+    # User URLs
     path('user/', UserDetailView.as_view(), name='user-detail'),
+    path('users/', UserListView.as_view(), name='user-list'),  # Add this line
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

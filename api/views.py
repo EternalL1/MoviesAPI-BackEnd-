@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework import generics, viewsets, permissions
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
@@ -134,7 +134,7 @@ def released_movies(request):
 @permission_classes([permissions.AllowAny])
 def search_movies(request):
     query = request.GET.get('q', '') 
-    movies = Movie.objects.filter(title__icontains(query))  #i made changes here 
+    movies = Movie.objects.filter(title__icontains=query)  #i made changes here 
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 
@@ -258,3 +258,8 @@ class RegisterUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterUserSerializer
     permission_classes = [permissions.AllowAny]
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAdminUser]  # Only admin users can access this view
