@@ -4,4 +4,5 @@ pillow
 django-cors-headers
 django-storages 
 boto3
-pip install cloudinary django-cloudinary-storage
+cloudinary 
+django-cloudinary-storage

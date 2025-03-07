@@ -4,10 +4,10 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.validators import MaxValueValidator
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, phoneNumber, fullName, password=None):
+    def create_user(self, email, phoneNumber, fullName, password):
         if not email and not phoneNumber:
             raise ValueError('Users must have either an email address or phone number')
-        user = self.model(email=email, phoneNumber=phoneNumber, fullName=fullName)
+        user = self.model( email=email, phoneNumber=phoneNumber, fullName=fullName)
         user.set_password(password)
         user.save(using=self._db)
         return user

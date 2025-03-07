@@ -20,6 +20,9 @@ from rest_framework.views import APIView  # Import APIView
 from .serializers import RegisterUserSerializer
 from rest_framework.permissions import IsAuthenticated
 
+
+
+
 User = get_user_model()
 
 def normalize_phone(phone):
@@ -37,6 +40,7 @@ def normalize_phone(phone):
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
 def register(request):
+    print(request.data)
     if request.method == 'POST':
         fullName = request.data.get('fullName', None)
         email = request.data.get('email', None)
@@ -71,7 +75,7 @@ def register(request):
 @permission_classes([permissions.AllowAny])
 def login_view(request):
     if request.method == 'POST':
-        identifier = request.data.get('identifier', None)
+        identifier = request.data.get('email', None)
         password = request.data.get('password', None)
 
         if not identifier or not password:

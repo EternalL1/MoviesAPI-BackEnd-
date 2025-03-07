@@ -1,0 +1,22 @@
+{
+  "name": "moviesapi-backend-",
+  "version": "1.0.0",
+  "description": "This is the backend for the Movie App, built using Django and Django REST Framework (DRF). It provides APIs for managing movies and user authentication. An admin panel is also included for CRUD operations.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EternalL1/MoviesAPI-BackEnd-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EternalL1/MoviesAPI-BackEnd-/issues"
+  },
+  "homepage": "https://github.com/EternalL1/MoviesAPI-BackEnd-#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
