@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-18nz=@1sfq_esot-!fpajxs5a@fk1!!d54_(p4tx1-7kgm$g^2
 DEBUG = True
 
 ALLOWED_HOSTS = ['movieapp-backend-dev.ap-southeast-1.elasticbeanstalk.com', 
-                 "172.31.20.230", '172.31.2.113', '172.31.6.31', '127.0.0.1' ]
+                 "172.31.20.230", '172.31.2.113', '172.31.6.31', '127.0.0.1', '54.166.247.249' ]
 
 
 # Application definition
@@ -119,9 +119,9 @@ else:
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'movies',
+        'USER': 'admin',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -188,7 +188,7 @@ REST_FRAMEWORK = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "54.166.247.249"]
 
 CORS_ALLOW_CREDENTIALS = True  # ✅ Allow sending credentials (cookies, authorization headers)
 CORS_ALLOWED_ORIGINS = [
@@ -200,3 +200,5 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]  # ✅ Ensure all methods are allowed
 CORS_ALLOW_HEADERS = ["*"]  # ✅ Allow all headers
+
+SECURE_SSL_REDIRECT = False
