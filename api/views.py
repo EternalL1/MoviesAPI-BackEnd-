@@ -92,7 +92,14 @@ def login_view(request):
             return JsonResponse({
                 'message': 'Login successful',
                 'token': token.key,
-                'role': user.role 
+                'role': user.role, 
+                'user': {
+                    'id': user.id,
+                    'email': user.email,
+                    'phoneNumber': user.phoneNumber,
+                    'fullName': user.fullName,
+                    'role': user.role
+                }
             }, status=200)
 
         return JsonResponse({'error': 'Invalid credentials'}, status=401)
