@@ -4,8 +4,8 @@ from .models import Movie, User, Bookmark
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'genre', 'release_date', 
-                 'poster_image', 'average_rating', 'duration','video_url'] 
+        fields = '__all__'
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

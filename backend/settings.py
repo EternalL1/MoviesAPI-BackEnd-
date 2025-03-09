@@ -188,10 +188,15 @@ REST_FRAMEWORK = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+
+CORS_ALLOW_CREDENTIALS = True  # ✅ Allow sending credentials (cookies, authorization headers)
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://127.0.0.1:5175",
-    "http://localhost:5175",
-    "http://localhost:5176",
+    "http://localhost:5176",  # ✅ Your React frontend's URL
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5176",  # ✅ Trusted origin for CSRF protection
+]
+CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]  # ✅ Ensure all methods are allowed
+CORS_ALLOW_HEADERS = ["*"]  # ✅ Allow all headers

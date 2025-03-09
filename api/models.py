@@ -58,6 +58,12 @@ class Movie(models.Model):
     video_url = models.URLField() 
     poster_image = models.URLField(null=True, blank=True)
     average_rating = models.FloatField(default=0, validators=[MaxValueValidator(10)])
+    year = models.IntegerField(null=True, blank=True)
+    imdb = models.FloatField(null=True, blank=True)
+    director = models.CharField(max_length=255, null=True, blank=True)
+    synopsis = models.TextField(null=True, blank=True)
+    background = models.TextField(null=True, blank=True)
+    poster = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.title
