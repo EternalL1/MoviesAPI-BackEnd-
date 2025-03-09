@@ -188,15 +188,17 @@ REST_FRAMEWORK = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "54.166.247.249"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "54.166.247.249", "frontend-movies-v2.vercel.app"]
 
 CORS_ALLOW_CREDENTIALS = True  # ✅ Allow sending credentials (cookies, authorization headers)
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5176",  # ✅ Your React frontend's URL
+  "https://frontend-movies-v2.vercel.app"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5176",  # ✅ Trusted origin for CSRF protection
+  "https://frontend-movies-v2.vercel.app"
 ]
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]  # ✅ Ensure all methods are allowed
 CORS_ALLOW_HEADERS = ["*"]  # ✅ Allow all headers
