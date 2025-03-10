@@ -198,7 +198,8 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5176",  # ✅ Trusted origin for CSRF protection
-  "https://frontend-movies-v2.vercel.app"
+    "https://frontend-movies-v2.vercel.app",
+    "https://movies.cheesusfriess.xyz"
 ]
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]  # ✅ Ensure all methods are allowed
 CORS_ALLOW_HEADERS = ["*"]  # ✅ Allow all headers
